@@ -1,15 +1,26 @@
-// Deploy YardCalc to GitHub Pages using the machine's stored GitHub credentials.
+// Deploy a site to GitHub Pages using the machine's stored GitHub credentials.
+// Default site: yardcalc; set SOE_SITE=agentforge (etc.) for another site.
 // Steps: extract PAT via `git credential fill` → ensure repo exists → push source
 // (master) → push built site (out/) to gh-pages branch → enable Pages → verify.
-// Run: .bin/node.exe scripts/deploy-gh-pages.mjs
+// Run: SOE_SITE=agentforge .bin/node.exe scripts/deploy-gh-pages.mjs
 import { spawnSync } from "node:child_process";
 import { existsSync, rmSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
-const REPO = "yardcalc";
+const SITE = process.env.SOE_SITE ?? "yardcalc";
+const REPO = SITE;
 const SITE_URL = `https://niceman1996.github.io/${REPO}/`;
+const REPO_DESCRIPTIONS = {
+  yardcalc: "YardCalc — DIY material calculators (SOE program, site 1)",
+  agentforge: "AgentForge — custom AI agents & workflow automation studio",
+};
+// Deep page fetched after go-live to confirm real content is serving.
+const VERIFY_PATHS = {
+  yardcalc: "tools/mulch-calculator",
+  agentforge: "services",
+};
 
 function git(args, opts = {}) {
   return spawnSync("git", args, { encoding: "utf8", cwd: root, ...opts });
@@ -49,7 +60,11 @@ if (res.status === 404) {
   console.log(`[2] creating repo ${username}/${REPO} (public)`);
   res = await api("/user/repos", {
     method: "POST",
-    body: JSON.stringify({ name: REPO, private: false, description: "YardCalc — DIY material calculators (SOE program, site 1)" }),
+    body: JSON.stringify({
+      name: REPO,
+      private: false,
+      description: REPO_DESCRIPTIONS[REPO] ?? REPO,
+    }),
   });
   if (!res.ok) throw new Error(`repo create failed: ${res.status} ${await res.text()}`);
 } else if (!res.ok) {
@@ -70,7 +85,7 @@ if (p.status !== 0) {
 console.log("    source pushed");
 
 // 4. push out/ as gh-pages (orphan repo inside out/)
-const outDir = join(root, "sites", "yardcalc", "out");
+const outDir = join(root, "sites", REPO, "out");
 if (!existsSync(outDir)) throw new Error("out/ missing — run build-pages.mjs first");
 console.log("[4] pushing site build to gh-pages");
 // GitHub Pages runs Jekyll by default, which drops underscore-prefixed dirs (_next)
@@ -127,6 +142,7 @@ while (Date.now() < deadline) {
 }
 if (!live) throw new Error("site did not go live within timeout");
 
-// verify a tool page too
-const tool = await fetch(`${checkUrl}tools/mulch-calculator`, { cache: "no-store" });
-console.log(`\nLIVE: ${checkUrl} (home 200, tool page ${tool.status})`);
+// verify a deep page too
+const verifyPath = VERIFY_PATHS[REPO] ?? "";
+const tool = await fetch(`${checkUrl}${verifyPath}`, { cache: "no-store" });
+console.log(`\nLIVE: ${checkUrl} (home 200, ${verifyPath || "(root)"} ${tool.status})`);

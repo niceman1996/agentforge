@@ -10,6 +10,8 @@
 
 | 4 | 2026-10-26 | 主 agent | 遗留问题清零：全量数据核实（17 组价格逐项对源，DATA_VERIFIED=true）+ 域名探测（yardcalc.xyz 可注册）+ 自定义域名一键切换（SOE_DOMAIN）+ GSC 指引（docs/next-steps.md） | ✅ 完成 | 调价 3 组：碎石 $20-75/码、栅栏柱 $12-45/红木板 $30-140、保温袋 $15-25；FAQ/测试同步；线上已验证生效；新增 scripts/push-master.mjs（GCM 交互挂起时用 token 直推） |
 
+| 5 | 2026-10-26 | 主 agent | AgentForge 上线（agent 定制服务门户，英文）：sites/agentforge 全站（6 页 + sitemap/robots + JSON-LD）、内容契约测试 12 条、build/deploy 脚本参数化（SOE_SITE 多站）、run-tests.mjs 直调 vitest | ✅ 完成 | 51 测试绿（39+12）、smoke 7/7、8 端点公网 200 → https://niceman1996.github.io/agentforge/；联系邮箱暂用 QQ 邮箱待换商务邮箱（sites/agentforge/lib/site.ts） |
+
 ## 关键技术事件留痕
 
 1. **本机 G:\kit\* 解释器写拦截**：node.exe/python.exe 从 G:\kit 启动时全盘 EPERM（Defender/CFA/ASR 均排除，疑系统级路径策略）。解法：复制 node.exe 到 SOE/.bin/ 用本地副本驱动一切 node 工具链（pnpm/next/vitest 经 .bin/node.exe 直调 .mjs/入口）。
@@ -17,5 +19,6 @@
 3. **GitHub Pages Jekyll 陷阱**：gh-pages 默认跑 Jekyll，_next/ 下划线目录被忽略 → 静态资源全 404；加 .nojekyll 解决。
 4. **MSYS 环境变量路径改写**：Git Bash 把 NEXT_PUBLIC_BASE_PATH=/yardcalc 改写成 Windows 路径；用 node 包装脚本（scripts/build-pages.mjs）进程内设 env 绕开。
 5. **管线退出码吞噬**：`cmd | tail` 掩盖真实退出码，曾导致旧构建被部署；改为显式 exit code 检查 + 部署前 rm -rf out 全新构建。
+6. **pnpm run 的 bin 壳回落陷阱**：`pnpm -r test` 里 vitest 经 node_modules/.bin 壳从 PATH 解析到 G:\kit\node.exe → Temp mkdir EPERM、测试全挂（与事件 1 同根因但更隐蔽：pnpm 本身已用 .bin/node.exe 直调，子进程壳却回落）。解法：scripts/run-tests.mjs 用 process.execPath 直调各站 vitest.mjs，根 package.json test 指向它。
 
 

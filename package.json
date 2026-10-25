@@ -16,7 +16,7 @@
   },
   "scripts": {
     "build": "pnpm --filter yardcalc build",
-    "test": "pnpm --filter yardcalc test",
+    "test": "node scripts/run-tests.mjs",
     "dev": "pnpm --filter yardcalc dev",
     "serve": "pnpm --filter yardcalc serve"
   }
