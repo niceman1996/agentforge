@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import Link from "next/link";
 import type { Faq, LinkItem, ToolDefinition } from "./types";
 
 /** Inject a JSON-LD structured-data block. */
@@ -15,14 +16,14 @@ export function SiteHeader({ brand, links }: { brand: string; links: LinkItem[] 
   return (
     <header className="sticky top-0 z-10 border-b border-stone-200 bg-white/90 backdrop-blur">
       <div className="mx-auto flex max-w-4xl items-center justify-between gap-4 px-4 py-3">
-        <a href="/" className="text-lg font-bold text-emerald-800">
+        <Link href="/" className="text-lg font-bold text-emerald-800">
           {brand}
-        </a>
+        </Link>
         <nav className="hidden items-center gap-4 text-sm text-stone-600 sm:flex">
           {links.map((l) => (
-            <a key={l.href} href={l.href} className="hover:text-emerald-700">
+            <Link key={l.href} href={l.href} className="hover:text-emerald-700">
               {l.title}
-            </a>
+            </Link>
           ))}
         </nav>
         {/* mobile nav: no-JS collapsible */}
@@ -30,9 +31,13 @@ export function SiteHeader({ brand, links }: { brand: string; links: LinkItem[] 
           <summary className="cursor-pointer list-none text-stone-600 select-none">☰ Menu</summary>
           <div className="absolute right-0 z-20 mt-2 w-44 rounded-lg border border-stone-200 bg-white p-2 shadow-lg">
             {links.map((l) => (
-              <a key={l.href} href={l.href} className="block rounded px-3 py-2 text-sm text-stone-700 hover:bg-stone-100">
+              <Link
+                key={l.href}
+                href={l.href}
+                className="block rounded px-3 py-2 text-sm text-stone-700 hover:bg-stone-100"
+              >
                 {l.title}
-              </a>
+              </Link>
             ))}
           </div>
         </details>
@@ -55,9 +60,9 @@ export function SiteFooter({
       <div className="mx-auto max-w-4xl px-4 py-8 text-sm text-stone-500">
         <div className="flex flex-wrap gap-x-6 gap-y-2">
           {links.map((l) => (
-            <a key={l.href} href={l.href} className="hover:text-emerald-700">
+            <Link key={l.href} href={l.href} className="hover:text-emerald-700">
               {l.title}
-            </a>
+            </Link>
           ))}
         </div>
         {note ? <p className="mt-4 leading-relaxed">{note}</p> : null}
@@ -84,9 +89,9 @@ export function Breadcrumbs({ items }: { items: LinkItem[] }) {
         {items.map((item, i) => (
           <li key={item.href} className="flex items-center gap-1">
             {i > 0 && <span aria-hidden="true">›</span>}
-            <a href={item.href} className="hover:text-emerald-700">
+            <Link href={item.href} className="hover:text-emerald-700">
               {item.title}
-            </a>
+            </Link>
           </li>
         ))}
       </ol>
@@ -195,12 +200,12 @@ export function RelatedTools({ items }: { items: LinkItem[] }) {
       <ul className="grid gap-2 sm:grid-cols-2">
         {items.map((l) => (
           <li key={l.href}>
-            <a
+            <Link
               href={l.href}
               className="block rounded-lg border border-stone-200 bg-white px-4 py-3 text-sm font-medium text-stone-700 hover:border-emerald-300 hover:text-emerald-700"
             >
               {l.title}
-            </a>
+            </Link>
           </li>
         ))}
       </ul>

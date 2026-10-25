@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { categories, getCategory, toolsByCategory } from "@/lib/registry";
 import { Breadcrumbs, JsonLd } from "@/shared";
@@ -60,7 +61,7 @@ export default async function CategoryPage({
       <ul className="mt-6 grid gap-3 sm:grid-cols-2">
         {catTools.map((t) => (
           <li key={t.slug}>
-            <a
+            <Link
               href={`/tools/${t.slug}`}
               className="block h-full rounded-xl border border-stone-200 bg-white p-4 shadow-sm transition hover:border-emerald-300 hover:shadow"
             >
@@ -68,7 +69,7 @@ export default async function CategoryPage({
               <span className="mt-1 block text-sm leading-relaxed text-stone-500">
                 {t.metaDescription}
               </span>
-            </a>
+            </Link>
           </li>
         ))}
       </ul>

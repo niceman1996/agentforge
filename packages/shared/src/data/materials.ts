@@ -105,8 +105,8 @@ export const PAVER = {
 export const DECK = {
   /** pressure-treated boards price per ft² of deck surface */
   boardPricePerSqFt: { low: 8, high: 20 } as PriceRange,
-  /** deck boards typically run at 16" OC joist spacing; screws ~350 per 1000 ft² */
-  screwsPer1000SqFt: 350,
+  /** ~3 screws per sq ft: 5.5" boards on 16" OC joists, 2 screws per crossing */
+  screwsPer1000SqFt: 3200,
   screwPricePerScrew: { low: 0.03, high: 0.08 },
   /** 5/4"×6" board actual coverage ~5.5" wide */
   boardWidthInches: 5.5,
