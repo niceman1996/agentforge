@@ -1,0 +1,164 @@
+// US material facts & prices for YardCalc cost estimates.
+//
+// ⚠ STATUS: PRELIMINARY SEED VALUES — every constant below must be verified
+// against 2026 US retail/industry sources (Home Depot / Lowe's / Angi /
+// HomeGuide / supplier price lists) by the data agent before launch.
+// When verified, set `DATA_VERIFIED = true` and fill `SOURCES` with the
+// URLs and access date. Formulas consume these constants so a price fix
+// never requires touching calculator code.
+
+export const DATA_VERIFIED = false as boolean;
+
+export const SOURCES: { key: string; url: string; accessed: string }[] = [
+  // e.g. { key: "concrete.bag80", url: "https://...", accessed: "2026-10-25" }
+];
+
+import type { BagProduct, PriceRange } from "../lib/calc";
+
+export const CONCRETE = {
+  /** Ready-mix truck, delivered, per cubic yard (with short-load fees this is 2026 US ballpark) */
+  bulkPricePerCubicYard: { low: 140, high: 190 } as PriceRange,
+  bags: [
+    { label: "80 lb bag", cubicFeet: 0.6, price: { low: 5.5, high: 8 } } as BagProduct,
+    { label: "60 lb bag", cubicFeet: 0.45, price: { low: 4.5, high: 6.5 } } as BagProduct,
+    { label: "40 lb bag", cubicFeet: 0.3, price: { low: 3, high: 5 } } as BagProduct,
+  ],
+  /** extra cubic yards to order over exact math (spill / uneven subgrade) */
+  orderOverageFactor: 1.1,
+};
+
+export const MULCH = {
+  bulkPricePerCubicYard: { low: 20, high: 55 } as PriceRange,
+  bags: [
+    { label: "2 cu ft bag", cubicFeet: 2, price: { low: 3.5, high: 7 } } as BagProduct,
+    { label: "3 cu ft bag", cubicFeet: 3, price: { low: 5, high: 9.5 } } as BagProduct,
+  ],
+  /** typical recommended depth in inches */
+  recommendedDepthInches: { low: 2, high: 4 },
+};
+
+export const GRAVEL = {
+  bulkPricePerCubicYard: { low: 15, high: 75 } as PriceRange,
+  bags: [
+    { label: "0.5 cu ft bag", cubicFeet: 0.5, price: { low: 4, high: 8 } } as BagProduct,
+  ],
+  /** common installs: driveway base 4-6", walkway 2-3" */
+  typicalDepthInches: { low: 2, high: 6 },
+  /** loose gravel density lb/ft³ for ton conversion */
+  densityLbPerCubicFoot: { low: 90, high: 130 },
+};
+
+export const TOPSOIL = {
+  bulkPricePerCubicYard: { low: 12, high: 55 } as PriceRange,
+  bags: [
+    { label: "40 lb bag", cubicFeet: 0.75, price: { low: 3, high: 6 } } as BagProduct,
+  ],
+};
+
+export const SOD = {
+  /** per pallet covering 450 ft² */
+  palletSqFt: 450,
+  palletPrice: { low: 130, high: 360 } as PriceRange,
+  /** per roll/slab covering ~10 ft² */
+  rollSqFt: 10,
+  rollPrice: { low: 1, high: 3 } as PriceRange,
+};
+
+export const GRASS_SEED = {
+  /** lbs per 1,000 ft² for a NEW lawn / OVERSEEDING, by seed type */
+  newLawnLbPer1000: {
+    "Kentucky bluegrass": { low: 2, high: 3 },
+    "Tall fescue": { low: 8, high: 10 },
+    "Perennial ryegrass": { low: 5, high: 7 },
+    "Fine fescue": { low: 3, high: 5 },
+    "Sun & shade mix": { low: 5, high: 8 },
+  } as Record<string, PriceRange>,
+  overseedFactor: 0.5,
+  pricePerLb: { low: 3, high: 8 } as PriceRange,
+};
+
+export const PAINT = {
+  /** one gallon covers ~350-400 ft² per coat (manufacturer labels) */
+  coveragePerGallon: { low: 350, high: 400 },
+  interiorPricePerGallon: { low: 25, high: 70 } as PriceRange,
+  exteriorPricePerGallon: { low: 30, high: 80 } as PriceRange,
+  primerCoveragePerGallon: 300,
+};
+
+export const TILE = {
+  /** grout: lb per 100 ft² varies by joint size; simplified */
+  groutLbPer100SqFt: { low: 10, high: 25 },
+  groutPricePerLb: { low: 2, high: 5 } as PriceRange,
+  /** waste factor to add to tile count */
+  wasteFactor: { min: 0.1, diagonal: 0.15 },
+  tilePricePerSqFt: { low: 1, high: 20 } as PriceRange,
+};
+
+export const PAVER = {
+  pricePerSqFt: { low: 2, high: 15 } as PriceRange,
+  /** 1 inch of sand bedding under pavers; paver sand sold in 0.5 cu ft bags */
+  beddingSandBagCubicFeet: 0.5,
+  beddingSandBagPrice: { low: 4, high: 8 } as PriceRange,
+  baseGravelDepthInches: 4,
+};
+
+export const DECK = {
+  /** pressure-treated boards price per ft² of deck surface */
+  boardPricePerSqFt: { low: 8, high: 20 } as PriceRange,
+  /** deck boards typically run at 16" OC joist spacing; screws ~350 per 1000 ft² */
+  screwsPer1000SqFt: 350,
+  screwPricePerScrew: { low: 0.03, high: 0.08 },
+  /** 5/4"×6" board actual coverage ~5.5" wide */
+  boardWidthInches: 5.5,
+  gapInches: 0.25,
+  boardLengths: [8, 10, 12, 14, 16, 20],
+};
+
+export const FENCE = {
+  /** typical privacy panel 8 ft wide × 6 ft tall */
+  panelWidthFt: 8,
+  postSpacingFt: 8,
+  postPrice: { low: 20, high: 60 } as PriceRange,
+  panelPrice: { low: 30, high: 120 } as PriceRange,
+  picketPrice: { low: 2, high: 6 } as PriceRange,
+  /** two rails per 8 ft section for picket fences */
+  railPrice: { low: 8, high: 20 } as PriceRange,
+};
+
+export const DRYWALL = {
+  sheet: { widthFt: 4, heightFt: 8, price: { low: 12, high: 22 } as PriceRange },
+  /** joint compound: gallon per 100 ft² (tape + 2 coats + skim) */
+  mudGallonsPer100SqFt: { low: 1, high: 2 },
+  mudPricePerGallon: { low: 10, high: 25 } as PriceRange,
+  tapeFeetPerSheet: 16,
+  screwsPerSheet: 32,
+};
+
+export const INSULATION_BLOWN = {
+  /** bags of blown-in fiberglass/cellulose per ft² at R-38 (attic benchmark) */
+  bagsPer1000SqFtAtR38: { low: 20, high: 35 },
+  bagPrice: { low: 8, high: 20 } as PriceRange,
+};
+
+export const SHINGLES = {
+  /** 1 roofing square = 100 ft²; 3 bundles per square is standard */
+  bundlesPerSquare: 3,
+  bundlePrice: { low: 30, high: 90 } as PriceRange,
+  /** add for starter/ridge/waste */
+  wasteFactor: 1.1,
+};
+
+export const LUMBER = {
+  /** board foot price for common framing lumber */
+  pricePerBoardFoot: { low: 1.5, high: 6 } as PriceRange,
+};
+
+export const RETAINING_WALL = {
+  blockFaceAreaSqFt: { low: 0.5, high: 1 }, // capston style varies
+  blockPrice: { low: 2, high: 12 } as PriceRange,
+};
+
+export const TOP = {
+  siteNote:
+    "Cost ranges reflect national US averages and vary by region, supplier, and delivery fees.",
+};

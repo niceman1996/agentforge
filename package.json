@@ -1,0 +1,22 @@
+{
+  "name": "soe",
+  "private": true,
+  "version": "0.1.0",
+  "description": "SOE batch tool-site program (US market, SEO + display ads). Site 1: YardCalc.",
+  "packageManager": "pnpm@11.20.0",
+  "pnpm": {
+    "onlyBuiltDependencies": ["esbuild", "@tailwindcss/oxide", "sharp"]
+  },
+  "devDependencies": {
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0"
+  },
+  "scripts": {
+    "build": "pnpm --filter yardcalc build",
+    "test": "pnpm --filter yardcalc test",
+    "dev": "pnpm --filter yardcalc dev",
+    "serve": "pnpm --filter yardcalc serve"
+  }
+}
