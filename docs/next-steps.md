@@ -54,20 +54,19 @@ HTTPS 证书 GitHub Pages 自动签发（Let's Encrypt），无需操作。
 - **AdSense**：GSC 收录 + 有真实流量后申请（合规页已内置）
 - 域名切换后 GSC 记得添加新域名资源并做地址变更（agent 会提醒）
 
-## 四、AgentForge（agent 定制服务门户，已上线）— 3 件人工事
+## 四、AgentForge(agent 定制服务门户,已上线)— 剩 2 件人工事
 
-> 现状：https://niceman1996.github.io/agentforge/ 已上线（8 端点公网 200，51 测试绿）。
-> 定位：英文定制 agent/自动化工作室，固定价（agent $499 起 / 自动化 $999 起 / 维护 $199/月），异步交付，案例=YardCalc+本站。
+> 现状:https://niceman1996.github.io/agentforge/ 已上线(8 端点公网 200,51 测试绿)。
+> 联系邮箱已换 niceboyniu@gmail.com ✅。获客资料包已备好:docs/upwork-kit.md。
 
-1. **换联系邮箱（5 分钟，最重要）**：现在用的是 `1746035770@qq.com`（真实邮箱防丢单，但不够商务）。注册一个 Gmail/域名邮箱后改 `sites/agentforge/lib/site.ts` 里的 `email` 一行，然后：
-   ```bash
-   SOE_SITE=agentforge ./.bin/node.exe scripts/build-pages.mjs
-   SOE_SITE=agentforge ./.bin/node.exe scripts/deploy-gh-pages.mjs
-   ```
-2. **GSC 提交**：同 yardcalc 流程，网址前缀填 `https://niceman1996.github.io/agentforge`，sitemap 提交 `…/agentforge/sitemap.xml`。
-3. **Upwork 开号**（获客主渠道，不等 SEO）：作品集填 YardCalc + AgentForge 两个站，搜索 "custom GPT" / "n8n" / "AI agent" 相关 job 开始投标。收款走 Payoneer 提现国内卡。
+1. **GSC 提交(约 5 分钟,需登录 Google,只有你能做)**:
+   1. 打开 https://search.google.com/search-console ,登录 niceboyniu@gmail.com
+   2. 「添加资源」→ 网址前缀 → 填 `https://niceman1996.github.io/agentforge`
+   3. 验证方式选 **HTML 标记**,把给出的 `content="…"` 值发给 agent,加进 layout 后重新部署即验证通过
+   4. 验证通过 → 站点地图 → 提交 `…/agentforge/sitemap.xml`(yardcalc 同流程再来一遍)
+2. **Upwork 开号**(身份验证必须本人):照 docs/upwork-kit.md §0 的 6 步走,资料/话术/策略全部现成。
 
-## 附：本项目常用命令
+## 附:本项目常用命令
 
 ```bash
 cd G:/ai/projects/ai/SOE
