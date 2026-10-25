@@ -71,7 +71,7 @@ export const mulchCalculator: ToolDefinition = {
     },
     {
       q: "How much does mulch cost in 2026?",
-      a: "Bagged mulch runs about $3.50–$7 per 2 cu ft bag at big-box stores. Bulk mulch costs roughly $20–$55 per cubic yard picked up, or $15–$65+ delivered depending on distance and type — dyed premium mulch sits at the high end.",
+      a: "Bagged mulch runs about $3.50–$7 per 2 cu ft bag at big-box stores. Bulk mulch costs roughly $30–$65 per cubic yard picked up or delivered depending on distance and type — dyed premium mulch sits at the high end.",
     },
     {
       q: "Should I buy mulch in bags or bulk?",

@@ -99,6 +99,6 @@ describe("post hole calculator math", () => {
     expect(rows["Total volume"]).toBe("23.6 cu ft");
     expect(rows["80 lb bags"]).toBe("40 bags");
     expect(rows["60 lb bags"]).toBe("53 bags");
-    expect(rows["Cost (80 lb bags, est.)"]).toBe("$220 – $320");
+    expect(rows["Cost (80 lb bags, est.)"]).toBe("$200 – $280");
   });
 });

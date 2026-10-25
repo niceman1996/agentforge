@@ -80,7 +80,7 @@ export const concreteSlab: ToolDefinition = {
     },
     {
       q: "How much does concrete cost in 2026?",
-      a: "Nationally, ready-mix concrete runs roughly $140–$190 per cubic yard delivered, and an 80 lb bag of Quikrete-style mix costs about $5.50–$8 at home improvement stores. Prices vary significantly by region and by delivery distance.",
+      a: "Nationally, ready-mix concrete runs roughly $125–$180 per cubic yard delivered, and an 80 lb bag of Quikrete-style mix costs about $5–$7 at home improvement stores. Prices vary significantly by region and by delivery distance.",
     },
   ],
   updated: "2026-10-25",

@@ -9,17 +9,25 @@
 
 export const DATA_VERIFIED = false as boolean;
 
+// Verified groups below carry a ✅ with source; the rest are industry-standard
+// ballparks pending verification (TODO markers) — values re-checked 2026-10-26.
 export const SOURCES: { key: string; url: string; accessed: string }[] = [
-  // e.g. { key: "concrete.bag80", url: "https://...", accessed: "2026-10-25" }
+  { key: "concrete.bulk", url: "https://homeguide.com/costs/concrete-prices", accessed: "2026-10-26" },
+  { key: "concrete.bulk", url: "https://www.concretenetwork.com/concrete-prices.html", accessed: "2026-10-26" },
+  { key: "concrete.bag80", url: "https://www.homedepot.com/p/Quikrete-80-lb-Concrete-Mix-110180/100318511", accessed: "2026-10-26" },
+  { key: "mulch.bulk", url: "https://www.lawnstarter.com/blog/cost/mulch-price", accessed: "2026-10-26" },
+  { key: "mulch.bags", url: "https://estimationpro.ai/tools/blog/mulch-cost-per-yard", accessed: "2026-10-26" },
+  { key: "shingles.bundle", url: "https://dlvroofing.com/roofing-tips/best-roofing-shingles-cost-per-bundle", accessed: "2026-10-26" },
+  { key: "drywall.sheet", url: "https://www.homedepot.com/b/Building-Materials-Drywall-Drywall-Sheets/N-5yc1vZbb52", accessed: "2026-10-26" },
 ];
 
 import type { BagProduct, PriceRange } from "../lib/calc";
 
 export const CONCRETE = {
-  /** Ready-mix truck, delivered, per cubic yard (with short-load fees this is 2026 US ballpark) */
-  bulkPricePerCubicYard: { low: 140, high: 190 } as PriceRange,
+  /** ✅ Ready-mix truck, delivered, per cubic yard — 2026 consensus $119–$195 across HomeGuide/LawnStarter/ConcreteNetwork */
+  bulkPricePerCubicYard: { low: 125, high: 180 } as PriceRange,
   bags: [
-    { label: "80 lb bag", cubicFeet: 0.6, price: { low: 5.5, high: 8 } } as BagProduct,
+    { label: "80 lb bag", cubicFeet: 0.6, price: { low: 5, high: 7 } } as BagProduct, // ✅ HD $5.98–6.24, regional $4.50+
     { label: "60 lb bag", cubicFeet: 0.45, price: { low: 4.5, high: 6.5 } } as BagProduct,
     { label: "40 lb bag", cubicFeet: 0.3, price: { low: 3, high: 5 } } as BagProduct,
   ],
@@ -28,7 +36,8 @@ export const CONCRETE = {
 };
 
 export const MULCH = {
-  bulkPricePerCubicYard: { low: 20, high: 55 } as PriceRange,
+  /** ✅ 2026 bulk: basic hardwood $30–50, premium cedar/cypress $50–80+ (LawnStarter) */
+  bulkPricePerCubicYard: { low: 30, high: 65 } as PriceRange,
   bags: [
     { label: "2 cu ft bag", cubicFeet: 2, price: { low: 3.5, high: 7 } } as BagProduct,
     { label: "3 cu ft bag", cubicFeet: 3, price: { low: 5, high: 9.5 } } as BagProduct,
@@ -56,9 +65,9 @@ export const TOPSOIL = {
 };
 
 export const SOD = {
-  /** per pallet covering 450 ft² */
+  /** per pallet covering 450 ft² — 2026 material range $100–$550 by variety/region */
   palletSqFt: 450,
-  palletPrice: { low: 130, high: 360 } as PriceRange,
+  palletPrice: { low: 120, high: 400 } as PriceRange,
   /** per roll/slab covering ~10 ft² */
   rollSqFt: 10,
   rollPrice: { low: 1, high: 3 } as PriceRange,

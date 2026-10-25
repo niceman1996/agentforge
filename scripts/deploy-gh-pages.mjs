@@ -3,7 +3,7 @@
 // (master) → push built site (out/) to gh-pages branch → enable Pages → verify.
 // Run: .bin/node.exe scripts/deploy-gh-pages.mjs
 import { spawnSync } from "node:child_process";
-import { existsSync, rmSync } from "node:fs";
+import { existsSync, rmSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 
@@ -73,6 +73,8 @@ console.log("    source pushed");
 const outDir = join(root, "sites", "yardcalc", "out");
 if (!existsSync(outDir)) throw new Error("out/ missing — run build-pages.mjs first");
 console.log("[4] pushing site build to gh-pages");
+// GitHub Pages runs Jekyll by default, which drops underscore-prefixed dirs (_next)
+writeFileSync(join(outDir, ".nojekyll"), "");
 rmSync(join(outDir, ".git"), { recursive: true, force: true });
 const gitIn = (args) => spawnSync("git", args, { encoding: "utf8", cwd: outDir });
 let q = gitIn(["init", "-b", "gh-pages"]);

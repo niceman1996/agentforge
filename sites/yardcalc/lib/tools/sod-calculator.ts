@@ -49,7 +49,7 @@ export const sodCalculator: ToolDefinition = {
   faqs: [
     {
       q: "How much does a pallet of sod cost in 2026?",
-      a: "A pallet covering 450 sq ft costs roughly $130–$360 depending on grass variety and region — Bermuda and fescue on the lower end, Zoysia and St. Augustine on the higher. Delivery, if not included, adds $50–$100.",
+      a: "A pallet covering 450 sq ft costs roughly $120–$400 depending on grass variety and region — Bermuda and fescue on the lower end, Zoysia and St. Augustine on the higher. Delivery, if not included, adds $50–$100.",
     },
     {
       q: "How many square feet does a roll of sod cover?",

@@ -10,8 +10,8 @@ describe("concrete slab calculator math", () => {
     expect(rows["Order with 10% extra"]).toBe("1.36 cu yd");
     expect(rows["80 lb bags (exact volume)"]).toBe("56 bags");
     expect(rows["60 lb bags (exact volume)"]).toBe("75 bags");
-    // bulk: 1.358 yd³ × $140–190 = $190.1 – $258.0
-    expect(rows["Ready-mix truck cost (est.)"]).toBe("$190 – $258");
+    // bulk: 1.358 yd³ × $125–180 = $169.8 – $244.4
+    expect(rows["Ready-mix truck cost (est.)"]).toBe("$170 – $244");
   });
 
   it("small pad 3×3 at 4in", () => {
