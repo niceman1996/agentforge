@@ -18,7 +18,7 @@ describe("deck calculator math", () => {
     expect(rows["Using 12 ft boards"]).toBe("26 boards");
     expect(rows["Using 16 ft boards"]).toBe("19 boards");
     expect(rows["Deck screws (2 per joist crossing)"]).toBe("≈ 461 screws");
-    expect(rows["Decking cost (est.)"]).toBe("$1,152 – $2,880");
+    expect(rows["Deck materials (est.)"]).toBe("$1,152 – $2,880");
   });
 });
 
@@ -28,7 +28,7 @@ describe("fence calculator math", () => {
     expect(rows["Posts needed"]).toBe("14 posts");
     expect(rows["Panel sections"]).toBe("13 sections (8 ft)");
     expect(rows["Concrete for posts"]).toBe("28 × 80 lb bags");
-    expect(rows["Panel cost (est.)"]).toBe("$390 – $1,560");
+    expect(rows["Panel cost (est.)"]).toBe("$390 – $1,820");
   });
   it("48 ft at 8 ft: 7 posts exactly", () => {
     const rows = r(fenceCalculator.compute({ length: 48, spacing: 8 }).rows);
@@ -55,7 +55,7 @@ describe("insulation calculator math", () => {
     const rows = r(insulationCalculator.compute({ area: 1000, depth: 14 }).rows);
     expect(rows["Bags needed"]).toBe("28 bags");
     expect(rows["Approximate R-value"]).toBe("≈ R-39");
-    expect(rows["Material cost (est.)"]).toBe("$224 – $560");
+    expect(rows["Material cost (est.)"]).toBe("$420 – $700");
   });
 });
 

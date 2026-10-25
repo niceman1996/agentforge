@@ -72,7 +72,7 @@ export const gravelCalculator: ToolDefinition = {
     },
     {
       q: "How much does gravel cost in 2026?",
-      a: "Bulk crushed stone runs about $15–$75 per cubic yard depending on stone type and region, with decorative stone at the high end. Half-cubic-foot bags cost roughly $4–$8 each at home improvement stores. Delivery fees add $30–$100 on top.",
+      a: "Bulk crushed stone runs about $20–$75 per cubic yard depending on stone type and region, with decorative stone at the high end. Half-cubic-foot bags cost roughly $4–$8 each at home improvement stores. Delivery fees add $30–$100 on top.",
     },
     {
       q: "How do I calculate gravel for a French drain?",

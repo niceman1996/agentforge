@@ -57,7 +57,7 @@ export const fenceCalculator: ToolDefinition = {
     },
     {
       q: "How much does a wood privacy fence cost in 2026?",
-      a: "DIY materials run roughly $10–$25 per linear foot: pressure-treated pre-assembled panels $30–$120 per 8 ft section, posts $20–$60 each, plus concrete and hardware. A 100 ft DIY fence typically totals $1,200–$2,500 in materials; professional installation adds $15–$40 per ft in labor.",
+      a: "DIY materials run roughly $10–$25 per linear foot: pressure-treated pre-assembled panels $30–$140 per 8 ft section, posts $12–$45 each, plus concrete and hardware. A 100 ft DIY fence typically totals $1,200–$2,500 in materials; professional installation adds $15–$40 per ft in labor.",
     },
     {
       q: "How many pickets do I need for a stick-built fence?",

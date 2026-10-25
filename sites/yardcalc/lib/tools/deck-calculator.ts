@@ -33,7 +33,7 @@ export const deckCalculator: ToolDefinition = {
         { label: "Using 12 ft boards", value: `${boards12} boards` },
         { label: "Using 16 ft boards", value: `${boards16} boards` },
         { label: "Deck screws (2 per joist crossing)", value: `≈ ${screws} screws` },
-        { label: "Decking cost (est.)", value: `${usd(cost.low)} – ${usd(cost.high)}` },
+        { label: "Deck materials (est.)", value: `${usd(cost.low)} – ${usd(cost.high)}` },
       ],
       note: "Board counts are the mathematical minimum — add 5–10% for cuts, defects, and board ends splitting. 16 ft boards mean fewer seams but are harder to transport alone. Joists, posts, and rails are extra.",
     };

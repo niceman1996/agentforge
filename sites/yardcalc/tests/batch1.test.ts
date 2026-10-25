@@ -19,7 +19,7 @@ describe("gravel calculator math", () => {
     expect(rows["Gravel volume"]).toBe("0.93 cu yd");
     expect(rows["Approximate weight"]).toBe("1.38 tons");
     expect(rows["0.5 cu ft bags"]).toBe("50 bags");
-    expect(rows["Bulk gravel cost (est.)"]).toBe("$14 – $69");
+    expect(rows["Bulk gravel cost (est.)"]).toBe("$19 – $69");
   });
 });
 

@@ -75,6 +75,11 @@ if (!existsSync(outDir)) throw new Error("out/ missing — run build-pages.mjs f
 console.log("[4] pushing site build to gh-pages");
 // GitHub Pages runs Jekyll by default, which drops underscore-prefixed dirs (_next)
 writeFileSync(join(outDir, ".nojekyll"), "");
+// Custom domain (set SOE_DOMAIN=yardcalc.xyz) → CNAME file makes Pages serve it
+if (process.env.SOE_DOMAIN) {
+  writeFileSync(join(outDir, "CNAME"), `${process.env.SOE_DOMAIN}\n`);
+  console.log(`    CNAME → ${process.env.SOE_DOMAIN}`);
+}
 rmSync(join(outDir, ".git"), { recursive: true, force: true });
 const gitIn = (args) => spawnSync("git", args, { encoding: "utf8", cwd: outDir });
 let q = gitIn(["init", "-b", "gh-pages"]);
@@ -110,11 +115,12 @@ console.log("    pages enabled");
 
 // 6. wait for the first build then verify over the public internet
 console.log("[6] waiting for deployment to go live…");
+const checkUrl = process.env.SOE_DOMAIN ? `https://${process.env.SOE_DOMAIN}/` : SITE_URL;
 const deadline = Date.now() + 8 * 60 * 1000;
 let live = false;
 while (Date.now() < deadline) {
   try {
-    const r = await fetch(SITE_URL, { cache: "no-store" });
+    const r = await fetch(checkUrl, { cache: "no-store" });
     if (r.ok) { live = true; break; }
   } catch {}
   await new Promise((s) => setTimeout(s, 15000));
@@ -122,5 +128,5 @@ while (Date.now() < deadline) {
 if (!live) throw new Error("site did not go live within timeout");
 
 // verify a tool page too
-const tool = await fetch(`${SITE_URL}tools/mulch-calculator`, { cache: "no-store" });
-console.log(`\nLIVE: ${SITE_URL} (home 200, tool page ${tool.status})`);
+const tool = await fetch(`${checkUrl}tools/mulch-calculator`, { cache: "no-store" });
+console.log(`\nLIVE: ${checkUrl} (home 200, tool page ${tool.status})`);

@@ -52,7 +52,7 @@ export const insulationCalculator: ToolDefinition = {
     },
     {
       q: "How much does blown-in insulation cost in 2026?",
-      a: "Bags of cellulose or fiberglass run roughly $8–$20 each. DIY material for a 1,000 sq ft attic at R-49 costs about $250–$600, with the blower machine usually free with a minimum bag purchase. Professional installation adds roughly $1–$2.50 per sq ft.",
+      a: "Bags of cellulose run roughly $15–$25 each (a 25 lb Greenfiber bag is about $16–$20 at big-box stores; premium lines reach ~$37). DIY material for a 1,000 sq ft attic at R-49 costs about $420–$700, with the blower machine usually free with a minimum bag purchase. Professional installation adds roughly $1–$2.50 per sq ft.",
     },
     {
       q: "Can I blow insulation over existing insulation?",
