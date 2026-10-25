@@ -8,6 +8,8 @@
 | 2 | 2026-10-26 | 子agent A×1 + B1×2 + B2×1 | 数据核实 / 批量计算器 | ❌ 全部秒败 | 平台风控 "request has been blocked due to unusual activity"，并发 3 发与单发重试均被拦——agent 基础设施不可用 |
 | 3 | 2026-10-26 | 主 agent（接管 ADR-003 预案） | 批量生产 15 个计算器 + 数据核实 + 部署 | ✅ 完成 | 17 工具/39 测试绿；混凝土/覆盖物/草皮/瓦/漆/石膏板价格已核（SOURCES 入档 materials.ts）；GitHub Pages 上线 https://niceman1996.github.io/yardcalc/（.nojekyll 修复 Jekyll 吞 _next 目录问题；25 页全 200） |
 
+| 4 | 2026-10-26 | 主 agent | 遗留问题清零：全量数据核实（17 组价格逐项对源，DATA_VERIFIED=true）+ 域名探测（yardcalc.xyz 可注册）+ 自定义域名一键切换（SOE_DOMAIN）+ GSC 指引（docs/next-steps.md） | ✅ 完成 | 调价 3 组：碎石 $20-75/码、栅栏柱 $12-45/红木板 $30-140、保温袋 $15-25；FAQ/测试同步；线上已验证生效；新增 scripts/push-master.mjs（GCM 交互挂起时用 token 直推） |
+
 ## 关键技术事件留痕
 
 1. **本机 G:\kit\* 解释器写拦截**：node.exe/python.exe 从 G:\kit 启动时全盘 EPERM（Defender/CFA/ASR 均排除，疑系统级路径策略）。解法：复制 node.exe 到 SOE/.bin/ 用本地副本驱动一切 node 工具链（pnpm/next/vitest 经 .bin/node.exe 直调 .mjs/入口）。
