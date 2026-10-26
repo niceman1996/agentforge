@@ -4,7 +4,7 @@ import { KnowledgeAssistantPreview, WorkflowPreview } from "@/components/work-de
 import { cases } from "@/lib/content";
 
 export const metadata: Metadata = {
-  title: "AI Assistant & Workflow Previews — AgentForge",
+  title: "Work: AI Assistants & Workflow Previews",
   description:
     "Explore honest, interactive previews of a document assistant and a human-reviewed workflow, plus a live engineering project.",
   alternates: { canonical: "/work" },
