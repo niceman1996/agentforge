@@ -1,32 +1,24 @@
-// Deploy a site to GitHub Pages using the machine's stored GitHub credentials.
-// Default site: yardcalc; set SOE_SITE=agentforge (etc.) for another site.
+// Deploy AgentForge to its own GitHub Pages repository.
 // Steps: extract PAT via `git credential fill` → ensure repo exists → push source
 // (master) → push built site (out/) to gh-pages branch → enable Pages → verify.
-// Run: SOE_SITE=agentforge .bin/node.exe scripts/deploy-gh-pages.mjs
+// Run from master: .bin/node.exe scripts/deploy-gh-pages.mjs
 import { spawnSync } from "node:child_process";
 import { existsSync, rmSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
-const SITE = process.env.SOE_SITE ?? "yardcalc";
-const REPO = SITE;
-const SITE_URL = `https://niceman1996.github.io/${REPO}/`;
-const REPO_DESCRIPTIONS = {
-  yardcalc: "YardCalc — DIY material calculators (SOE program, site 1)",
-  agentforge: "AgentForge — custom AI agents & workflow automation studio",
-};
-// Deep page fetched after go-live to confirm real content is serving.
-const VERIFY_PATHS = {
-  yardcalc: "tools/mulch-calculator",
-  agentforge: "services",
-};
+const REPO = "agentforge";
+const SITE_URL = "https://niceman1996.github.io/agentforge/";
+const REPO_DESCRIPTION = "AgentForge — custom AI agents & workflow automation studio";
+const VERIFY_PATH = "services";
 
 function git(args, opts = {}) {
   return spawnSync("git", args, { encoding: "utf8", cwd: root, ...opts });
 }
-function node(args, opts = {}) {
-  return spawnSync(process.execPath, args, { encoding: "utf8", ...opts });
+const branch = git(["branch", "--show-current"]).stdout.trim();
+if (branch !== "master") {
+  throw new Error(`deploy from master only (current branch: ${branch || "detached HEAD"})`);
 }
 
 // 1. credentials
@@ -63,7 +55,7 @@ if (res.status === 404) {
     body: JSON.stringify({
       name: REPO,
       private: false,
-      description: REPO_DESCRIPTIONS[REPO] ?? REPO,
+      description: REPO_DESCRIPTION,
     }),
   });
   if (!res.ok) throw new Error(`repo create failed: ${res.status} ${await res.text()}`);
@@ -85,16 +77,11 @@ if (p.status !== 0) {
 console.log("    source pushed");
 
 // 4. push out/ as gh-pages (orphan repo inside out/)
-const outDir = join(root, "sites", REPO, "out");
-if (!existsSync(outDir)) throw new Error("out/ missing — run build-pages.mjs first");
+const outDir = join(root, "out");
+if (!existsSync(outDir)) throw new Error("out/ missing — run scripts/next.mjs build first");
 console.log("[4] pushing site build to gh-pages");
 // GitHub Pages runs Jekyll by default, which drops underscore-prefixed dirs (_next)
 writeFileSync(join(outDir, ".nojekyll"), "");
-// Custom domain (set SOE_DOMAIN=yardcalc.xyz) → CNAME file makes Pages serve it
-if (process.env.SOE_DOMAIN) {
-  writeFileSync(join(outDir, "CNAME"), `${process.env.SOE_DOMAIN}\n`);
-  console.log(`    CNAME → ${process.env.SOE_DOMAIN}`);
-}
 rmSync(join(outDir, ".git"), { recursive: true, force: true });
 const gitIn = (args) => spawnSync("git", args, { encoding: "utf8", cwd: outDir });
 let q = gitIn(["init", "-b", "gh-pages"]);
@@ -130,7 +117,7 @@ console.log("    pages enabled");
 
 // 6. wait for the first build then verify over the public internet
 console.log("[6] waiting for deployment to go live…");
-const checkUrl = process.env.SOE_DOMAIN ? `https://${process.env.SOE_DOMAIN}/` : SITE_URL;
+const checkUrl = SITE_URL;
 const deadline = Date.now() + 8 * 60 * 1000;
 let live = false;
 while (Date.now() < deadline) {
@@ -143,6 +130,5 @@ while (Date.now() < deadline) {
 if (!live) throw new Error("site did not go live within timeout");
 
 // verify a deep page too
-const verifyPath = VERIFY_PATHS[REPO] ?? "";
-const tool = await fetch(`${checkUrl}${verifyPath}`, { cache: "no-store" });
-console.log(`\nLIVE: ${checkUrl} (home 200, ${verifyPath || "(root)"} ${tool.status})`);
+const tool = await fetch(`${checkUrl}${VERIFY_PATH}`, { cache: "no-store" });
+console.log(`\nLIVE: ${checkUrl} (home 200, ${VERIFY_PATH} ${tool.status})`);

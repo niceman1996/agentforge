@@ -1,9 +1,4 @@
-packages:
-  - "packages/*"
-  - "sites/*"
+packages: []
 
 allowBuilds:
-  esbuild: set this to true or false
-
-# Avoid pnpm's pre-run dependency re-check (hits EPERM on this machine).
-verifyDepsBeforeRun: false
+  esbuild: true

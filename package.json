@@ -1,23 +1,28 @@
 {
-  "name": "soe",
-  "private": true,
+  "name": "agentforge",
   "version": "0.1.0",
-  "description": "SOE batch tool-site program (US market, SEO + display ads). Site 1: YardCalc.",
+  "private": true,
   "packageManager": "pnpm@11.20.0",
-  "pnpm": {
-    "onlyBuiltDependencies": ["esbuild", "@tailwindcss/oxide", "sharp"]
+  "scripts": {
+    "dev": "node scripts/next.mjs dev",
+    "build": "node scripts/next.mjs build",
+    "test": "node scripts/run-tests.mjs",
+    "smoke": "node scripts/smoke.mjs out",
+    "serve": "node scripts/serve-static.mjs out 8080",
+    "deploy": "node scripts/deploy-gh-pages.mjs"
   },
-  "devDependencies": {
+  "dependencies": {
     "next": "^15.5.0",
     "react": "^19.1.0",
-    "react-dom": "^19.1.0",
-    "@types/react": "^19.1.0",
-    "@types/react-dom": "^19.1.0"
+    "react-dom": "^19.1.0"
   },
-  "scripts": {
-    "build": "pnpm --filter yardcalc build",
-    "test": "node scripts/run-tests.mjs",
-    "dev": "pnpm --filter yardcalc dev",
-    "serve": "pnpm --filter yardcalc serve"
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.0",
+    "@types/node": "^22.15.0",
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
+    "tailwindcss": "^4.1.0",
+    "typescript": "^5.8.0",
+    "vitest": "^3.1.0"
   }
 }
