@@ -4,9 +4,9 @@ import { FaqSection } from "@/components/site-ui";
 import { services, serviceFaqs } from "@/lib/content";
 
 export const metadata: Metadata = {
-  title: "Services & Pricing — Custom GPTs from $499",
+  title: "Services & Pricing — Self-Hosted AI & Remote Setup",
   description:
-    "Custom AI agents and GPTs from $499 (5–10 day delivery), n8n / Make workflow automation from $999, care plans from $199/mo. Fixed price with a written spec before any work starts.",
+    "Self-hosted AI assistants from $1,500, n8n workflows from $999, optional cloud GPT setup from $499, and maintenance from $199/mo. Remote setup on your systems.",
   alternates: { canonical: "/services" },
 };
 
@@ -17,9 +17,10 @@ export default function ServicesPage() {
         Services &amp; pricing
       </h1>
       <p className="mt-3 max-w-2xl leading-relaxed text-stone-600">
-        Every engagement starts the same way: a written spec and a fixed quote within 48
-        hours of your first email. The prices below are floors, not estimates — most
-        single-agent builds land between $500 and $2,000.
+        We prioritize remote deployment on your own computer or server. All prices are
+        in USD and are starting prices for the scope below. Once your brief and hosting
+        details are complete, we aim to send a written scope and fixed quote within two
+        business days. Cloud options are available when they fit your requirements.
       </p>
 
       <div className="mt-8 space-y-6">
@@ -34,6 +35,9 @@ export default function ServicesPage() {
             </div>
             <p className="mt-1 text-sm font-medium text-stone-500">{s.timeline}</p>
             <p className="mt-3 leading-relaxed text-stone-600">{s.blurb}</p>
+            <p className="mt-3 text-sm leading-relaxed text-stone-600">
+              <strong className="text-stone-800">Deployment:</strong> {s.deployment}
+            </p>
             <ul className="mt-4 space-y-2">
               {s.includes.map((inc) => (
                 <li key={inc} className="flex gap-2 text-sm leading-relaxed text-stone-700">
@@ -44,9 +48,27 @@ export default function ServicesPage() {
                 </li>
               ))}
             </ul>
+            <p className="mt-4 rounded-lg bg-stone-50 p-3 text-sm leading-relaxed text-stone-600">
+              <strong className="text-stone-800">Scope &amp; limits:</strong> {s.scope}
+            </p>
           </section>
         ))}
       </div>
+
+      <section className="mt-8 rounded-xl border border-stone-200 bg-white p-6">
+        <h2 className="text-xl font-bold text-stone-900">Local deployment and running costs</h2>
+        <p className="mt-3 leading-relaxed text-stone-600">
+          Installation on one supported host is included in the self-hosted project quote.
+          Hardware purchases, hosting, model API usage, software licenses and subscriptions
+          are paid by you through your own accounts. We list the expected services and costs
+          before work starts.
+        </p>
+        <p className="mt-3 leading-relaxed text-stone-600">
+          Local hosting can still use cloud model APIs. Fully offline inference requires a
+          hardware and task review and must be agreed in the quote. For scheduled or always-on
+          workflows, your host needs to stay powered and connected.
+        </p>
+      </section>
 
       <div className="mt-8 rounded-xl bg-emerald-50 px-5 py-6 text-center">
         <p className="font-semibold text-emerald-900">

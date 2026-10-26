@@ -26,14 +26,15 @@ export default function HomePage() {
       <section className="border-b border-stone-200 bg-white">
         <div className="mx-auto max-w-4xl px-4 py-16 text-center sm:py-20">
           <p className="text-sm font-semibold uppercase tracking-widest text-emerald-700">
-            Custom AI agents &amp; workflow automation
+            Remote setup · Your computer or server
           </p>
           <h1 className="mt-3 text-4xl font-bold tracking-tight text-stone-900 sm:text-5xl">
-            Custom AI agents, built fast.
+            AI agents and workflows, deployed on your systems.
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-lg leading-relaxed text-stone-600">
-            AgentForge designs and ships production AI agents and workflow automations for
-            small teams — fixed price, written spec in 48 hours, delivery in days.
+            AgentForge builds AI assistants and n8n automations for small teams, then helps
+            install them remotely on your own computer or server. Hardware, scope and a
+            fixed price are agreed before work starts.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <Link
@@ -63,7 +64,7 @@ export default function HomePage() {
       {/* Why */}
       <section className="mx-auto max-w-4xl px-4 py-14">
         <h2 className="text-2xl font-bold tracking-tight text-stone-900">
-          Why teams pick a factory, not an agency
+          A clear scope and a setup you control
         </h2>
         <div className="mt-6 grid gap-4 sm:grid-cols-3">
           {whyCards.map((c) => (
@@ -89,7 +90,11 @@ export default function HomePage() {
               All details →
             </Link>
           </div>
-          <div className="mt-6 grid gap-4 sm:grid-cols-3">
+          <p className="mt-3 text-sm text-stone-600">
+            Prices in USD. Self-hosted projects include remote setup on one supported host;
+            cloud GPT setup is an optional alternative.
+          </p>
+          <div className="mt-6 grid gap-4 sm:grid-cols-2">
             {services.map((s) => (
               <Link
                 key={s.id}
@@ -181,8 +186,8 @@ export default function HomePage() {
             Have a job an agent should be doing?
           </h2>
           <p className="mx-auto mt-2 max-w-xl text-emerald-100">
-            Describe it in ten minutes of writing. You&apos;ll have a written spec and a
-            fixed quote within 48 hours — keep the spec either way.
+            Tell us the task and where you want it to run. Once your brief and hosting
+            details are complete, we aim to send a scope and fixed quote within two business days.
           </p>
           <Link
             href="/contact"

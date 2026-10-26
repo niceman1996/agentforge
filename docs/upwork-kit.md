@@ -14,20 +14,21 @@
 
 ## 1. Profile Title(三选一,推荐 A)
 
-- **A.** `AI Agent Developer | Custom GPTs & n8n Automations | Fixed Price, Spec in 48h`
+- **A.** `Self-Hosted AI Agents & n8n Automation | Remote Setup | Fixed Price`
 - B. `I build AI agents & automations that do real work | GPTs, n8n, Make`
 - C. `Custom GPT & n8n Automation Developer — fixed price, no hourly surprises`
 
 ## 2. Profile Overview(直接粘贴;前两行决定客户点不点你)
 
 ```
-I build AI agents and automations that quietly do real work — customer-support
-GPTs grounded in your own docs, and n8n/Make pipelines that move data between
-your CRM, inbox and spreadsheets while you sleep.
+I build AI assistants and n8n automations, with remote setup on your own
+computer or server as the default. Your task, hardware and model requirements
+are reviewed before I quote. Cloud Custom GPT or Make setups are optional.
 
-How I work: send me one message describing the job. Within 48 hours you have a
-one-page spec and a fixed price. No hourly meters, no surprise invoices.
-Delivery in days, two weeks of fixes included, and you own everything I build.
+How I work: send me your goal, current tools and hosting details. Once the
+brief is complete, I aim to send a one-page scope and fixed quote within two
+business days. Project builds include 14 days of bug fixes within the agreed
+scope, plus documentation and a recorded handover.
 
 I run my own agent production line, so I ship faster than the hourly crowd.
 Proof you can inspect right now:
@@ -37,9 +38,14 @@ Proof you can inspect right now:
   same production line in a single day: https://niceman1996.github.io/agentforge/
 
 What I build most:
-• Custom GPTs / internal copilots grounded in your knowledge base (fixed, from $499)
-• n8n / Make workflow automations with AI steps where they pay for themselves (from $999)
-• Care plans so what I build keeps working as your data and models change (from $199/mo)
+• Self-hosted AI assistant: one use case and one deployment host, from $1,500
+• One self-hosted n8n workflow connecting up to two tools, from $999
+• Optional cloud Custom GPT setup in your ChatGPT account, from $499
+• Optional care plan, up to two maintenance hours/month, from $199/mo
+
+Hardware, hosting, model APIs, licenses and subscriptions are paid through
+your accounts. Local hosting may still call cloud APIs; fully offline models
+require a hardware and task review before I commit to a solution.
 
 Ask me for a fixed-price spec on your job — it's free to keep even if you
 don't hire me.
@@ -60,7 +66,7 @@ don't hire me.
 | 3 个五星后 | 提到 $50–60/hr | 有 JSS 背书,中位区间 |
 | 10 单+ / 有代表作 | $80–100/hr,大单只走 fixed | expert 区间($100–150 是天花板) |
 
-对照行情:Upwork 官方 AI agent developer 区间 $30–150/hr,单项目 $500–2,000。
+官网起价按交付范围区分，不作为市场均价：本地 AI 助手 $1,500 起（一个用途、一个部署目标）；n8n 单工作流 $999 起（一个触发器、最多两个工具）；云端 Custom GPT $499 起；维护 $199/月起（最多两小时，不结转）。前期优先远程部署到客户自有电脑或服务器。硬件、模型 API、托管、软件许可和订阅另付；完全离线需求先核硬件。超范围先报价，不能将完整定制 AI 系统按 $499 GPT 套餐出售。
 
 ## 5. Portfolio 三件(Project Catalog 同样内容)
 
@@ -82,8 +88,10 @@ Hi [NAME],
 
 [复述他目标的一句话,用他的原词] — that's exactly the kind of build I do.
 
-My offer: within 48 hours of you sharing the details, you get a one-page
-spec and a fixed price. Keep both free even if you don't hire me.
+My offer: once your brief and hosting details are complete, I aim to send
+a one-page scope and fixed quote within two business days. Remote setup on
+your computer or server is my default. Keep the initial scope and quote free
+even if you don't hire me.
 
 Proof you can check right now: [一条最相关的作品链接 + 一句话].
 
@@ -123,7 +131,7 @@ Q2: `Do you have (or can you export) your top 50 real tickets for testing the bo
 ### T5 · RAG 知识库 / 内部 copilot
 
 Hook: `A private copilot over [HIS CORPUS] with source citations, so answers are checkable instead of vibes.`
-Q1: `Is the data sensitive enough that we should run everything inside your own OpenAI/Azure account? (Default answer is yes, and it's how I build.)`
+Q1: `Should the assistant use a cloud model API, or do you require fully offline inference? What computer or server hardware is available?`
 Q2: `Who are the first 5 users — support, sales, engineering?`
 
 ### T6 · 线索挖掘 / enrichment
@@ -163,7 +171,7 @@ Q2: `What's your monthly API budget ceiling — I design prompts and models arou
 - **前 3 单的目标是五星评价**,不是利润——$300–500 的小单快速闭合并要评价
 - **红旗单不投**:预算 <$50 还要 "full AI assistant"、要 free sample 先做、"simple job anyone can do"、客户未验证付款
 - **时区**:你的下午 2–6 点 = 欧洲上午,投标+回复双高峰;美国客户的单晚上投,他上班时你排前面
-- **中标后**立刻按官网 Process 走:48h 内发一页 spec + 固定价(模板见 T 系列);每单结束把案例页加到 AgentForge /work
+- **中标后**按官网 Process 走：先核需求和客户部署硬件，资料齐备后以两个工作日为目标给出一页范围和固定报价；约定远程安装、验收、临时权限撤销与运行费用。每单结束，经客户同意再加案例到 AgentForge /work。
 - **每周复盘**:记录每个模板的回复率,回复率 <10% 的开头改掉重测
 
 ## 8. 与站群的配合

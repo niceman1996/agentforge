@@ -5,9 +5,9 @@
  */
 export const site = {
   name: "AgentForge",
-  title: "AgentForge — Custom AI Agents & Workflow Automation",
+  title: "AgentForge — Self-Hosted AI Agents & Workflow Automation",
   description:
-    "We design and ship production AI agents and workflow automations for small teams. Fixed price, written spec in 48 hours, delivery in days. Custom GPTs from $499, n8n / Make automations from $999.",
+    "Remote setup on your computer or server: workflow automation from $999, self-hosted AI agents from $1,500. Optional cloud Custom GPT setup from $499. Fixed scope and price.",
   email: "niceboyniu@gmail.com",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://niceman1996.github.io/agentforge",
   timezone: "UTC+8",

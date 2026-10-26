@@ -3,9 +3,9 @@ import Link from "next/link";
 import { processSteps } from "@/lib/content";
 
 export const metadata: Metadata = {
-  title: "How We Work — Fixed Price, Async-First",
+  title: "How We Work — Remote Setup on Your Systems",
   description:
-    "From your first email to delivery: written spec and fixed quote in 48 hours, weekly recorded updates, two weeks of included support. No status meetings.",
+    "From your brief and hardware review to remote installation, acceptance checks and handover. Fixed scope, customer-owned systems, and 14 days of bug-fix support.",
   alternates: { canonical: "/process" },
 };
 
@@ -16,8 +16,8 @@ export default function ProcessPage() {
         How we work
       </h1>
       <p className="mt-3 max-w-2xl leading-relaxed text-stone-600">
-        Five steps, none of them a meeting. The whole process is designed to run across
-        time zones without slowing down.
+        Five steps from your brief to a working setup on the agreed host. Routine updates
+        happen by email and recorded video; remote installation sessions are arranged when needed.
       </p>
 
       <ol className="mt-8 space-y-4">
@@ -35,9 +35,9 @@ export default function ProcessPage() {
       <div className="mt-8 rounded-xl border border-emerald-200 bg-emerald-50 p-5">
         <h2 className="font-semibold text-emerald-900">Communication, concretely</h2>
         <ul className="mt-2 space-y-1.5 text-sm leading-relaxed text-emerald-900">
-          <li>· Email and recorded video only — no calls required to get a build done.</li>
-          <li>· We work UTC+8 with strong overlap with European mornings; US East clients get end-of-day recorded updates.</li>
-          <li>· Every promise (scope, price, date) is written in the spec — the spec is the contract.</li>
+          <li>· Email and recorded video for routine updates; agreed remote sessions for installation.</li>
+          <li>· We work UTC+8 and arrange installation times with you before requesting access.</li>
+          <li>· Scope, price, delivery date, acceptance criteria and running costs are agreed in writing.</li>
         </ul>
       </div>
 

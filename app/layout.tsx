@@ -42,7 +42,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <SiteFooter
           brand={site.name}
           links={footerLinks}
-          note="Custom AI agents and workflow automation for small teams. Fixed price, written spec first, delivered from UTC+8."
+          note="Self-hosted AI assistants and n8n workflows for small teams. Remote setup on your computer or server, fixed scope and price, delivered from UTC+8."
         />
       </body>
     </html>

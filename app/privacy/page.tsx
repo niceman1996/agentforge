@@ -22,8 +22,15 @@ export default function PrivacyPage() {
           become a client, to deliver the work. We never sell or share your information.
         </p>
         <p>
-          Client engagements run on infrastructure you own (for example your own n8n, OpenAI
-          or Anthropic accounts); credentials stay with you and never pass through us.
+          We prioritize remote setup on a computer or server you own. You enter account
+          credentials directly in your own environment. Any temporary remote access is
+          agreed before use and removed after handover unless maintenance access is separately agreed.
+        </p>
+        <p>
+          A locally hosted installation may still send inputs to a cloud model API or a
+          connected service. The project scope identifies those services and data flows.
+          Fully offline operation must be agreed explicitly after reviewing your hardware
+          and task. Optional Custom GPT and Make setups use cloud platforms.
         </p>
         <p>
           This site is hosted on GitHub Pages; GitHub&apos;s handling of request logs is

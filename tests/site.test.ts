@@ -43,10 +43,11 @@ describe("why cards", () => {
 });
 
 describe("services", () => {
-  it("offers the three anchor packages", () => {
+  it("keeps local deployments and optional cloud setup as separate packages", () => {
     expect(services.map((s) => s.id)).toEqual([
       "custom-agent",
       "workflow-automation",
+      "custom-gpt",
       "care-plan",
     ]);
   });
