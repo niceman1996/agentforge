@@ -20,6 +20,9 @@ export const metadata: Metadata = {
     siteName: SITE_NAME,
     type: "website",
   },
+  verification: {
+    google: "-B9bH2Tq907nNACPq7T4jLKYd_LEZivoeEFX4uDS3dc",
+  },
 };
 
 const headerLinks: LinkItem[] = categories.map((c) => ({
