@@ -68,8 +68,8 @@ describe("services", () => {
 });
 
 describe("case studies", () => {
-  it("has three entries, each with metrics and details", () => {
-    expect(cases).toHaveLength(3);
+  it("keeps the shipped case separate from the in-house product previews", () => {
+    expect(cases).toHaveLength(1);
     for (const c of cases) {
       expect(c.title.length).toBeGreaterThan(10);
       expect(c.summary.length).toBeGreaterThan(20);

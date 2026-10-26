@@ -116,15 +116,15 @@ export default function HomePage() {
       <section className="mx-auto max-w-4xl px-4 py-14">
         <div className="flex items-baseline justify-between gap-4">
           <h2 className="text-2xl font-bold tracking-tight text-stone-900">
-            Proof over promises
+            A shipped product, plus interactive previews
           </h2>
           <Link href="/work" className="text-sm font-medium text-emerald-700 hover:underline">
             All work →
           </Link>
         </div>
         <p className="mt-3 max-w-2xl leading-relaxed text-stone-600">
-          We&apos;re a new studio, so instead of client logos we show what our production line
-          has actually shipped — live, public, and testable by anyone.
+          See a public product we shipped, then try two sample previews of the assistants and
+          workflows we build.
         </p>
         <div className="mt-6 grid gap-4 sm:grid-cols-2">
           {cases.slice(0, 2).map((c) => (

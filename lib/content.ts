@@ -133,29 +133,6 @@ export const cases: CaseStudy[] = [
     metrics: ["17 tools live", "39 automated tests green", "2026 pricing data, source-verified"],
     href: "https://niceman1996.github.io/yardcalc/",
   },
-  {
-    id: "agentforge",
-    title: "AgentForge — the site you are reading",
-    summary:
-      "This website was specified, written, built, tested and deployed by the same factory in a single working day.",
-    details: [
-      "It ships with content-contract tests (missing prices or empty sections fail the build), a sitemap, structured data and a rendered-page smoke test.",
-      "A website that sells the factory should be factory-made. This one is.",
-    ],
-    metrics: ["Built in 1 working day", "Content locked by automated tests", "Static, fast, no tracking"],
-  },
-  {
-    id: "factory",
-    title: "The agent factory itself",
-    summary:
-      "Our internal production line: spec-driven, gated, and reviewed by humans at every handoff.",
-    details: [
-      "Every deliverable starts as a written spec — no work begins without one, including for internal tools.",
-      "Automated gates at each stage: unit tests, smoke tests on rendered pages, and verification against the live deployment.",
-      "Human review signs off on every deliverable before it reaches a client or the public internet.",
-    ],
-    metrics: ["Spec-first production", "Automated quality gates", "Human sign-off on every deliverable"],
-  },
 ];
 
 export const processSteps: ProcessStep[] = [
