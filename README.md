@@ -14,7 +14,7 @@ Install dependencies with pnpm, then run project commands through the local Node
 ```powershell
 New-Item -ItemType Directory -Force .bin | Out-Null
 Copy-Item G:\kit\node\node.exe .bin\node.exe
-\.bin\node.exe G:\kit\node\node_modules\pnpm\bin\pnpm.mjs install
+.\.bin\node.exe G:\kit\node\node_modules\pnpm\bin\pnpm.mjs install
 ```
 
 ```powershell
@@ -22,7 +22,7 @@ Copy-Item G:\kit\node\node.exe .bin\node.exe
 .\.bin\node.exe scripts/run-tests.mjs
 .\.bin\node.exe scripts/next.mjs build
 .\.bin\node.exe scripts/smoke.mjs out
-.\.bin\node.exe scripts/serve-static.mjs out 8080
+.\.bin\node.exe scripts/serve-static.mjs out 8080 /agentforge
 ```
 
 The build wrapper sets the `/agentforge` GitHub Pages base path and canonical site URL. Deployment is a separate explicit command after a successful build:

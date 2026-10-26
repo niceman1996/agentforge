@@ -1,16 +1,24 @@
 // Deploy AgentForge to its own GitHub Pages repository.
 // Steps: extract PAT via `git credential fill` → ensure repo exists → push source
 // (master) → push built site (out/) to gh-pages branch → enable Pages → verify.
-// Run from master: .bin/node.exe scripts/deploy-gh-pages.mjs
+// Run from master: .\.bin\node.exe scripts/deploy-gh-pages.mjs
 import { spawnSync } from "node:child_process";
-import { existsSync, rmSync, writeFileSync } from "node:fs";
+import {
+  cpSync,
+  existsSync,
+  mkdtempSync,
+  readdirSync,
+  rmSync,
+  writeFileSync,
+} from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
+import { tmpdir } from "node:os";
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
+const OWNER = "niceman1996";
 const REPO = "agentforge";
 const SITE_URL = "https://niceman1996.github.io/agentforge/";
-const REPO_DESCRIPTION = "AgentForge — custom AI agents & workflow automation studio";
 const VERIFY_PATH = "services";
 
 function git(args, opts = {}) {
@@ -30,9 +38,9 @@ const cred = Object.fromEntries(
     return [l.slice(0, i), l.slice(i + 1)];
   }),
 );
-const { username, password: TOKEN } = cred;
+const { password: TOKEN } = cred;
 if (!TOKEN) throw new Error("no GitHub token available from credential helper");
-console.log(`[1] credentials: ${username} (token present, ${TOKEN.length} chars)`);
+console.log(`[1] GitHub credentials available (token present, ${TOKEN.length} chars)`);
 
 const api = (path, init = {}) =>
   fetch(`https://api.github.com${path}`, {
@@ -40,33 +48,19 @@ const api = (path, init = {}) =>
     headers: {
       Authorization: `Bearer ${TOKEN}`,
       Accept: "application/vnd.github+json",
-      "User-Agent": "soe-deploy",
+      "User-Agent": "agentforge-deploy",
       ...(init.body ? { "Content-Type": "application/json" } : {}),
       ...init.headers,
     },
   });
 
-// 2. ensure repo (public — required for free GitHub Pages)
-let res = await api(`/repos/${username}/${REPO}`);
-if (res.status === 404) {
-  console.log(`[2] creating repo ${username}/${REPO} (public)`);
-  res = await api("/user/repos", {
-    method: "POST",
-    body: JSON.stringify({
-      name: REPO,
-      private: false,
-      description: REPO_DESCRIPTION,
-    }),
-  });
-  if (!res.ok) throw new Error(`repo create failed: ${res.status} ${await res.text()}`);
-} else if (!res.ok) {
-  throw new Error(`repo check failed: ${res.status} ${await res.text()}`);
-} else {
-  console.log(`[2] repo ${username}/${REPO} exists`);
-}
+// 2. verify the fixed project repository (never infer its owner from the token account)
+let res = await api(`/repos/${OWNER}/${REPO}`);
+if (!res.ok) throw new Error(`repo check failed: ${res.status} ${await res.text()}`);
+console.log(`[2] repo ${OWNER}/${REPO} exists`);
 
 // 3. push source branch
-const origin = `https://x-access-token:${TOKEN}@github.com/${username}/${REPO}.git`;
+const origin = `https://x-access-token:${TOKEN}@github.com/${OWNER}/${REPO}.git`;
 console.log("[3] pushing source (master)");
 let p = git(["push", origin, "master:master"]);
 if (p.status !== 0) {
@@ -76,28 +70,53 @@ if (p.status !== 0) {
 }
 console.log("    source pushed");
 
-// 4. push out/ as gh-pages (orphan repo inside out/)
+// 4. update gh-pages from its current tip so its history is preserved
 const outDir = join(root, "out");
 if (!existsSync(outDir)) throw new Error("out/ missing — run scripts/next.mjs build first");
 console.log("[4] pushing site build to gh-pages");
 // GitHub Pages runs Jekyll by default, which drops underscore-prefixed dirs (_next)
 writeFileSync(join(outDir, ".nojekyll"), "");
 rmSync(join(outDir, ".git"), { recursive: true, force: true });
-const gitIn = (args) => spawnSync("git", args, { encoding: "utf8", cwd: outDir });
-let q = gitIn(["init", "-b", "gh-pages"]);
-if (q.status !== 0) throw new Error(`out git init failed: ${q.stderr}`);
-gitIn(["add", "-A"]);
-q = gitIn(["commit", "-m", `deploy ${new Date().toISOString()}`]);
-if (q.status !== 0) throw new Error(`out commit failed: ${q.stderr}`);
-q = gitIn(["push", "--force", origin, "gh-pages:gh-pages"]);
-if (q.status !== 0) throw new Error(`gh-pages push failed:\n${q.stderr}`);
-console.log("    gh-pages pushed");
+const tempRoot = mkdtempSync(join(tmpdir(), "agentforge-pages-"));
+try {
+  const deployDir = join(tempRoot, "gh-pages");
+  const runDeployGit = (args) =>
+    spawnSync("git", args, { encoding: "utf8", cwd: deployDir });
+  let q = spawnSync(
+    "git",
+    ["clone", "--branch", "gh-pages", "--single-branch", origin, deployDir],
+    { encoding: "utf8", cwd: root },
+  );
+  if (q.status !== 0) throw new Error(`gh-pages clone failed:\n${q.stderr}`);
+
+  for (const name of readdirSync(deployDir)) {
+    if (name !== ".git") rmSync(join(deployDir, name), { recursive: true, force: true });
+  }
+  cpSync(outDir, deployDir, {
+    recursive: true,
+    filter: (source) => !source.split(/[\\/]/).includes(".git"),
+  });
+  q = runDeployGit(["add", "-A"]);
+  if (q.status !== 0) throw new Error(`gh-pages stage failed:\n${q.stderr}`);
+  q = runDeployGit(["diff", "--cached", "--quiet"]);
+  if (q.status === 1) {
+    q = runDeployGit(["commit", "-m", `deploy ${new Date().toISOString()}`]);
+    if (q.status !== 0) throw new Error(`gh-pages commit failed:\n${q.stderr}`);
+  } else if (q.status !== 0) {
+    throw new Error(`gh-pages diff failed:\n${q.stderr}`);
+  }
+  q = runDeployGit(["push", "origin", "gh-pages"]);
+  if (q.status !== 0) throw new Error(`gh-pages push failed:\n${q.stderr}`);
+  console.log("    gh-pages updated with a normal commit");
+} finally {
+  rmSync(tempRoot, { recursive: true, force: true });
+}
 
 // 5. enable Pages on gh-pages branch
 console.log("[5] enabling GitHub Pages (gh-pages / root)");
-res = await api(`/repos/${username}/${REPO}/pages`);
+res = await api(`/repos/${OWNER}/${REPO}/pages`);
 if (res.status === 404) {
-  res = await api(`/repos/${username}/${REPO}/pages`, {
+  res = await api(`/repos/${OWNER}/${REPO}/pages`, {
     method: "POST",
     body: JSON.stringify({ source: { branch: "gh-pages", path: "/" } }),
   });
@@ -107,7 +126,7 @@ if (res.status === 404) {
 } else if (res.ok) {
   const info = await res.json();
   if (info.source?.branch !== "gh-pages") {
-    await api(`/repos/${username}/${REPO}/pages`, {
+    await api(`/repos/${OWNER}/${REPO}/pages`, {
       method: "PUT",
       body: JSON.stringify({ source: { branch: "gh-pages", path: "/" } }),
     });

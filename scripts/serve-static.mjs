@@ -6,6 +6,7 @@ import { extname, join, normalize } from "node:path";
 
 const dir = process.argv[2] ?? "out";
 const port = Number(process.argv[3] ?? 8080);
+const basePath = (process.argv[4] ?? "").replace(/\/+$/, "");
 
 const TYPES = {
   ".html": "text/html; charset=utf-8",
@@ -37,7 +38,16 @@ async function resolve(pathname) {
 
 const server = createServer(async (req, res) => {
   const url = new URL(req.url ?? "/", "http://localhost");
-  const p = await resolve(url.pathname);
+  let pathname = url.pathname;
+  if (basePath && pathname.startsWith(`${basePath}/`)) {
+    pathname = pathname.slice(basePath.length);
+  } else if (basePath && pathname !== "/" && pathname !== basePath) {
+    res.writeHead(404).end("Not found");
+    return;
+  } else if (basePath && pathname === basePath) {
+    pathname = "/";
+  }
+  const p = await resolve(pathname);
   if (!p) {
     res.writeHead(403).end("Forbidden");
     return;
@@ -59,5 +69,5 @@ const server = createServer(async (req, res) => {
 });
 
 server.listen(port, () => {
-  console.log(`Serving ${dir} at http://localhost:${port}`);
+  console.log(`Serving ${dir} at http://localhost:${port}${basePath}/`);
 });
