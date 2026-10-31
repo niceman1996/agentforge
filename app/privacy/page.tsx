@@ -3,7 +3,7 @@ import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
-  description: "AgentForge privacy policy: this site is static, sets no cookies and runs no tracking.",
+  description: "AgentForge privacy policy, including its use of Google Analytics to measure site visits.",
   alternates: { canonical: "/privacy" },
 };
 
@@ -13,13 +13,29 @@ export default function PrivacyPage() {
       <h1 className="text-3xl font-bold tracking-tight text-stone-900">Privacy policy</h1>
       <div className="mt-4 space-y-4 leading-relaxed text-stone-600">
         <p>
-          This website is a static site: it sets no cookies, runs no analytics, and loads
-          no third-party tracking scripts. We do not collect personal data through the
-          site itself.
+          This is a static website. It has no user accounts or contact form, and we do
+          not ask you to submit personal information through the site.
+        </p>
+        <h2 className="text-xl font-semibold text-stone-900">Analytics and cookies</h2>
+        <p>
+          We use Google Analytics to measure page views and understand how visitors use
+          this site. The page-view events include the page URL, path and title. Google
+          may also collect usage and device information and use cookies. We do not add
+          contact details or service request content to analytics events. For details on
+          Google&apos;s data handling, see the{" "}
+          <a
+            href="https://policies.google.com/privacy"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-emerald-700 hover:underline"
+          >
+            Google Privacy Policy
+          </a>
+          .
         </p>
         <p>
           If you email us, we keep your message and address only to reply and, if you
-          become a client, to deliver the work. We never sell or share your information.
+          become a client, to deliver the work. We do not sell your message or address.
         </p>
         <p>
           We prioritize remote setup on a computer or server you own. You enter account

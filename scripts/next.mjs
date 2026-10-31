@@ -12,6 +12,7 @@ const env = {
   ...process.env,
   NEXT_PUBLIC_SITE_URL: "https://niceman1996.github.io/agentforge",
   NEXT_PUBLIC_BASE_PATH: "/agentforge",
+  NEXT_PUBLIC_GA_ID: "G-D8MHQP9BK9",
 };
 const next = join(root, "node_modules", "next", "dist", "bin", "next");
 const result = spawnSync(process.execPath, [next, command, ...process.argv.slice(3)], {

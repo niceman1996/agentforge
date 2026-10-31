@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import type { LinkItem } from "@/components/site-ui";
 import { SiteHeader, SiteFooter } from "@/components/site-ui";
+import GoogleAnalytics from "@/components/GoogleAnalytics";
 import { site } from "@/lib/site";
 import "./globals.css";
 
@@ -42,8 +43,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <SiteFooter
           brand={site.name}
           links={footerLinks}
-          note="Self-hosted AI assistants and n8n workflows for small teams. Remote setup on your computer or server, fixed scope and price, delivered from UTC+8."
+          note="Self-hosted AI assistants and n8n workflows for small teams. Remote setup on your computer or server, fixed scope and price, delivered from UTC+8. This site uses Google Analytics cookies to measure visits; see the Privacy Policy."
         />
+        <GoogleAnalytics />
       </body>
     </html>
   );
