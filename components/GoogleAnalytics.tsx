@@ -9,7 +9,7 @@ const analyticsEnabled = /^G-[A-Z0-9]+$/.test(measurementId);
 
 declare global {
   interface Window {
-    dataLayer?: unknown[][];
+    dataLayer?: unknown[];
     gtag?: (...args: unknown[]) => void;
   }
 }
@@ -33,7 +33,7 @@ export default function GoogleAnalytics() {
     <>
       <Script id="google-analytics-init" strategy="beforeInteractive">
         {`window.dataLayer = window.dataLayer || [];
-window.gtag = function(){ window.dataLayer.push(Array.from(arguments)); };
+window.gtag = function(){ window.dataLayer.push(arguments); };
 window.gtag('js', new Date());
 window.gtag('config', ${JSON.stringify(measurementId)}, { send_page_view: false });`}
       </Script>
